@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ChatWindowComponent } from '../chat-window/chat-window.component';
 import { ChatService } from '../chat.service';
 import { TranslatePipe } from '../../../core/i18n/translate.pipe';
+import { TranslationService } from '../../../core/i18n/translation.service';
 
 @Component({
   selector: 'app-assistant-view',
@@ -29,7 +30,7 @@ import { TranslatePipe } from '../../../core/i18n/translate.pipe';
            
            <div class="d-flex flex-column gap-3">
              
-             <button class="btn text-start p-3 d-flex align-items-center skill-btn primary-glow" (click)="triggerSkill('Explain Options Trading responsibly for a beginner.')">
+             <button class="btn text-start p-3 d-flex align-items-center skill-btn primary-glow" (click)="triggerSkill('ASSISTANT.SKILL_1_TITLE', 'OPTIONS')">
                <div class="icon-box bg-primary bg-opacity-10 text-primary p-2 me-3">
                  <i class="bi bi-book fs-5"></i>
                </div>
@@ -39,7 +40,7 @@ import { TranslatePipe } from '../../../core/i18n/translate.pipe';
                </div>
              </button>
 
-             <button class="btn text-start p-3 d-flex align-items-center skill-btn danger-glow" (click)="triggerSkill('Simulate the portfolio impact of a 20% spike in Brent Crude Oil.')">
+             <button class="btn text-start p-3 d-flex align-items-center skill-btn danger-glow" (click)="triggerSkill('ASSISTANT.SKILL_2_TITLE', 'RISK_SPIKE')">
                <div class="icon-box bg-danger bg-opacity-10 text-danger p-2 me-3">
                  <i class="bi bi-activity fs-5"></i>
                </div>
@@ -49,7 +50,7 @@ import { TranslatePipe } from '../../../core/i18n/translate.pipe';
                </div>
              </button>
 
-             <button class="btn text-start p-3 d-flex align-items-center skill-btn warning-glow" (click)="triggerSkill('Scan the last 30 days of trading for suspicious patterns or anomalies.')">
+             <button class="btn text-start p-3 d-flex align-items-center skill-btn warning-glow" (click)="triggerSkill('ASSISTANT.SKILL_3_TITLE', 'ANOMALY')">
                <div class="icon-box bg-warning bg-opacity-10 text-warning p-2 me-3">
                  <i class="bi bi-shield-exclamation fs-5"></i>
                </div>
@@ -59,7 +60,7 @@ import { TranslatePipe } from '../../../core/i18n/translate.pipe';
                </div>
              </button>
 
-             <button class="btn text-start p-3 d-flex align-items-center skill-btn success-glow" (click)="triggerSkill('Generate a highly structured weekly investment wrap-up summary.')">
+             <button class="btn text-start p-3 d-flex align-items-center skill-btn success-glow" (click)="triggerSkill('ASSISTANT.SKILL_4_TITLE', 'WEEKLY')">
                <div class="icon-box bg-success bg-opacity-10 text-success p-2 me-3">
                  <i class="bi bi-file-earmark-text fs-5"></i>
                </div>
@@ -69,7 +70,7 @@ import { TranslatePipe } from '../../../core/i18n/translate.pipe';
                </div>
              </button>
 
-             <button class="btn text-start p-3 d-flex align-items-center skill-btn info-glow" (click)="triggerSkill('Analyze the latest STCG tax rule changes and cross-reference with my live portfolio data.')">
+             <button class="btn text-start p-3 d-flex align-items-center skill-btn info-glow" (click)="triggerSkill('ASSISTANT.SKILL_5_TITLE', 'TAX')">
                <div class="icon-box bg-info bg-opacity-10 text-info p-2 me-3">
                  <i class="bi bi-bank fs-5"></i>
                </div>
@@ -79,7 +80,7 @@ import { TranslatePipe } from '../../../core/i18n/translate.pipe';
                </div>
              </button>
 
-             <button class="btn text-start p-3 d-flex align-items-center skill-btn secondary-glow" (click)="triggerSkill('Provide an explainable breakdown of why my portfolio risk score is currently 78/100.')">
+             <button class="btn text-start p-3 d-flex align-items-center skill-btn secondary-glow" (click)="triggerSkill('ASSISTANT.SKILL_6_TITLE', 'RISK_SCORE')">
                <div class="icon-box bg-secondary bg-opacity-10 text-secondary p-2 me-3">
                  <i class="bi bi-diagram-3 fs-5"></i>
                </div>
@@ -175,8 +176,10 @@ import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 })
 export class AssistantViewComponent {
   private chatService = inject(ChatService);
+  private ts = inject(TranslationService);
 
-  triggerSkill(prompt: string) {
-    this.chatService.sendMessage(prompt);
+  triggerSkill(promptKey: string, intentId: string) {
+    const translatedPrompt = this.ts.translate(promptKey);
+    this.chatService.sendMessage(translatedPrompt, intentId);
   }
 }
