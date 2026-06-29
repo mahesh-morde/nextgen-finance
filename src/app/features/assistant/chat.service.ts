@@ -165,7 +165,7 @@ export class ChatService {
       const body = {
         message: prompt,
         preamble: systemPrompt,
-        model: 'command-r' // using chat model
+        model: config.model
       };
       return this.http.post<any>('https://api.cohere.ai/v1/chat', body, { headers }).pipe(
         map((res: any) => {
