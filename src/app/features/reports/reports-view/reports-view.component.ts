@@ -185,7 +185,9 @@ import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 
               <div class="detailed-analysis">
                 <h5 class="fw-bold mb-3 mt-5">{{ 'REPORTS_CONTENT.DYNAMIC.DEEP_DIVE' | translate }}</h5>
-                <p class="text-muted lh-lg" *ngFor="let p of section.paragraphs">{{ p | translate }}</p>
+                <p class="text-muted lh-lg" *ngFor="let pKeys of section.paragraphs">
+                  <ng-container *ngFor="let k of pKeys">{{ k | translate }} </ng-container>
+                </p>
               </div>
             </div>
           </div>
