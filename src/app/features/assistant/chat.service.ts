@@ -139,8 +139,44 @@ export class ChatService {
           throw new Error('Invalid response');
         })
       );
-    } 
-    // Additional providers truncated for prototype fallback simulation...
+    } else if (provider === 'google') {
+      const url = `${config.endpoint.split('?')[0]}?key=${config.key}`;
+      const body = {
+        system_instruction: {
+          parts: [{ text: systemPrompt }]
+        },
+        contents: [
+          { parts: [{ text: prompt }] }
+        ]
+      };
+      return this.http.post<any>(url, body).pipe(
+        map((res: any) => {
+          if (res.candidates && res.candidates.length > 0 && res.candidates[0].content.parts.length > 0) {
+            return res.candidates[0].content.parts[0].text;
+          }
+          throw new Error('Invalid response');
+        })
+      );
+    } else if (provider === 'cohere') {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${config.key}`,
+        'Content-Type': 'application/json'
+      });
+      const body = {
+        message: prompt,
+        preamble: systemPrompt,
+        model: 'command-r' // using chat model
+      };
+      return this.http.post<any>('https://api.cohere.ai/v1/chat', body, { headers }).pipe(
+        map((res: any) => {
+          if (res.text) {
+            return res.text;
+          }
+          throw new Error('Invalid response');
+        })
+      );
+    }
+    
     return new Observable<string>(s => s.error('Not implemented or no key'));
   }
 
