@@ -1,0 +1,123 @@
+@import '../../../../styles/variables';
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 120px);
+  max-height: 800px;
+  background-color: $surface-light;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  border: 1px solid $border-light;
+  overflow: hidden;
+}
+
+.chat-header {
+  border-bottom: 1px solid $border-light;
+  background-color: rgba(0,0,0,0.02);
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.chat-input-area {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid $border-light;
+  background-color: rgba(0,0,0,0.02);
+
+  .input-group {
+    background: $surface-light;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-lg;
+    padding: 0.5rem;
+    transition: box-shadow 0.3s;
+    
+    &:focus-within {
+      box-shadow: 0 0 0 4px rgba($primary-color, 0.1);
+      border-color: $primary-color;
+    }
+  }
+
+  .custom-textarea {
+    border: none;
+    box-shadow: none;
+    resize: none;
+    max-height: 150px;
+    background: transparent;
+    
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  .send-btn {
+    border-radius: $border-radius-md;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+  }
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1rem 1.5rem !important;
+  
+  span {
+    width: 6px;
+    height: 6px;
+    background-color: currentColor;
+    border-radius: 50%;
+    animation: typing 1.4s infinite both;
+    opacity: 0.6;
+    
+    &:nth-child(1) { animation-delay: 0s; }
+    &:nth-child(2) { animation-delay: 0.2s; }
+    &:nth-child(3) { animation-delay: 0.4s; }
+  }
+}
+
+@keyframes typing {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+:host-context(.dark-mode) .chat-container {
+  background-color: $surface-dark;
+  border-color: $border-dark;
+  
+  .chat-header {
+    border-bottom-color: $border-dark;
+    background-color: rgba(0,0,0,0.2);
+    
+    .form-select {
+      background-color: #2b2b2b;
+      color: $text-dark;
+      border-color: $border-dark;
+    }
+  }
+  
+  .chat-input-area {
+    background-color: rgba(0,0,0,0.2);
+    border-top-color: $border-dark;
+    
+    .input-group {
+      background: #2b2b2b;
+      border-color: $border-dark;
+    }
+    
+    .custom-textarea {
+      color: $text-dark;
+      &::placeholder { color: $text-muted-dark; }
+    }
+  }
+}

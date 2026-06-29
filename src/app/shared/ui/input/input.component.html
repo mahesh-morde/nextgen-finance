@@ -1,0 +1,20 @@
+<div class="custom-input-group">
+  <label *ngIf="label" class="input-label">{{ label }}</label>
+  
+  <div class="input-wrapper" [class.has-error]="!!errorMessage" [class.has-icon]="!!icon">
+    <i *ngIf="icon" class="bi input-icon" [ngClass]="icon"></i>
+    
+    <input 
+      [type]="type"
+      class="form-control custom-input"
+      [placeholder]="placeholder"
+      [value]="value"
+      [disabled]="disabled"
+      (input)="handleInput($event)"
+      (blur)="onTouched()">
+  </div>
+  
+  <div class="error-text" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+</div>

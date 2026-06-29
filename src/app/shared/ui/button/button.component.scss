@@ -1,0 +1,64 @@
+@import '../../../../styles/variables';
+@import '../../../../styles/mixins';
+
+.custom-btn {
+  border-radius: $border-radius-md;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  @include micro-animation;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+  }
+
+  &:active::after {
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+  }
+
+  &.btn-primary {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    color: white;
+    box-shadow: 0 4px 10px rgba($primary-color, 0.3);
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+
+  &.btn-ghost {
+    background: transparent;
+    color: $primary-color;
+    border: none;
+    &:hover {
+      background: rgba($primary-color, 0.1);
+      box-shadow: none;
+    }
+  }
+}
+
+.spin-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

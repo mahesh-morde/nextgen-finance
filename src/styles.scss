@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+@import './styles/variables';
+@import './styles/mixins';
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: $bg-light;
+  color: $text-light;
+}
+
+/* Custom Scrollbar hidden for premium feel */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  scrollbar-width: none;
+}
+
+.dark-mode {
+  body {
+    background-color: $bg-dark;
+    color: $text-dark;
+  }
+}

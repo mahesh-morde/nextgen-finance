@@ -1,0 +1,51 @@
+// Theme Variables
+$primary-color: #0d6efd; // Premium Blue
+$secondary-color: #6c757d;
+$success-color: #198754; // Green for gains
+$danger-color: #dc3545;  // Red for losses
+$warning-color: #ffc107;
+
+// Futuristic Accent Colors
+$neon-cyan: #06b6d4;
+$neon-blue: #3b82f6;
+$neon-purple: #8b5cf6;
+$neon-green: #10b981;
+
+// Futuristic Effects
+$hologram-glow: rgba(6, 182, 212, 0.15);
+$surface-glass: rgba(255, 255, 255, 0.05);
+$surface-glass-dark: rgba(15, 20, 35, 0.65);
+$border-glow: rgba(6, 182, 212, 0.25);
+$glow-shadow-cyan: 0 0 20px rgba(6, 182, 212, 0.15);
+$glow-shadow-blue: 0 0 20px rgba(13, 110, 253, 0.15);
+
+// Futuristic Gradients
+$gradient-futuristic: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 100%);
+$gradient-hologram: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1));
+$gradient-card-dark: linear-gradient(145deg, rgba(30, 30, 30, 0.9) 0%, rgba(15, 20, 35, 0.9) 100%);
+$gradient-accent: linear-gradient(90deg, $neon-cyan, $primary-color);
+
+// Light Theme
+$bg-light: #f8f9fa;
+$surface-light: #ffffff;
+$text-light: #212529;
+$text-muted-light: #6c757d;
+$border-light: #dee2e6;
+
+// Dark Theme (Premium Dark)
+$bg-dark: #121212;
+$surface-dark: #1e1e1e;
+$text-dark: #e9ecef;
+$text-muted-dark: #adb5bd;
+$border-dark: #343a40;
+
+// Spacing & Layout
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 16px;
+$border-radius-xl: 24px;
+
+// Shadows
+$shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+$shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+$shadow-lg: 0 10px 15px rgba(0,0,0,0.1);

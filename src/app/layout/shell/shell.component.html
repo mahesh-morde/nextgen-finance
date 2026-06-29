@@ -1,0 +1,11 @@
+<div class="app-layout">
+  <app-sidebar (toggled)="onSidebarToggled($event)"></app-sidebar>
+  
+  <div class="main-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <app-topbar></app-topbar>
+    
+    <main class="content-area">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

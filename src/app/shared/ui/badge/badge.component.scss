@@ -1,0 +1,30 @@
+@import '../../../../styles/variables';
+
+.custom-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+  font-weight: 600;
+  border-radius: $border-radius-sm;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  &.rounded-pill {
+    border-radius: 50rem;
+    padding-left: 0.85em;
+    padding-right: 0.85em;
+  }
+
+  &.badge-primary { background-color: rgba($primary-color, 0.1); color: $primary-color; }
+  &.badge-success { background-color: rgba($success-color, 0.1); color: $success-color; }
+  &.badge-danger { background-color: rgba($danger-color, 0.1); color: $danger-color; }
+  &.badge-warning { background-color: rgba($warning-color, 0.2); color: darken($warning-color, 20%); }
+  &.badge-info { background-color: rgba(#0dcaf0, 0.1); color: #0dcaf0; }
+  &.badge-dark { background-color: rgba($text-light, 0.1); color: $text-light; }
+}
+
+:host-context(.dark-mode) .custom-badge {
+  &.badge-warning { color: $warning-color; }
+  &.badge-dark { background-color: rgba($text-dark, 0.1); color: $text-dark; }
+}

@@ -1,0 +1,70 @@
+@import '../../../../styles/variables';
+@import '../../../../styles/mixins';
+
+.custom-card {
+  background-color: $surface-light;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  border: 1px solid $border-light;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+
+  &.glass {
+    @include glass-morphism;
+  }
+
+  &.interactive:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-4px);
+    cursor: pointer;
+  }
+
+  .card-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid $border-light;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .card-title {
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    
+    .card-subtitle {
+      margin: 0.25rem 0 0 0;
+      font-size: 0.85rem;
+    }
+  }
+
+  .card-body {
+    padding: 1.5rem;
+    flex: 1;
+  }
+
+  .card-footer:empty {
+    display: none;
+  }
+
+  .card-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid $border-light;
+    background-color: rgba(0,0,0,0.02);
+  }
+}
+
+:host-context(.dark-mode) .custom-card {
+  background-color: $surface-dark;
+  border-color: $border-dark;
+
+  .card-header, .card-footer {
+    border-color: $border-dark;
+  }
+  
+  .card-footer {
+    background-color: rgba(255,255,255,0.02);
+  }
+}

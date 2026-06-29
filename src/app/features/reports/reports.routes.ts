@@ -1,0 +1,1 @@
+import { Routes } from '@angular/router'; import { ReportsViewComponent } from './reports-view/reports-view.component'; export const REPORTS_ROUTES: Routes = [{ path: '', component: ReportsViewComponent }];  

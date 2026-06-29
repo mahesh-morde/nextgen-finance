@@ -1,0 +1,11 @@
+<button 
+  [class]="buttonClasses" 
+  [disabled]="disabled || loading"
+  (click)="handleClick($event)">
+  
+  <i *ngIf="loading" class="bi bi-arrow-repeat spin-icon me-2"></i>
+  <i *ngIf="icon && !loading" [class]="'bi ' + icon + (label ? ' me-2' : '')"></i>
+  
+  <ng-content *ngIf="!label"></ng-content>
+  <span *ngIf="label">{{ label }}</span>
+</button>

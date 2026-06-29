@@ -1,0 +1,1 @@
+import { Routes } from '@angular/router'; import { PortfolioViewComponent } from './portfolio-view/portfolio-view.component'; export const PORTFOLIO_ROUTES: Routes = [{ path: '', component: PortfolioViewComponent }];  

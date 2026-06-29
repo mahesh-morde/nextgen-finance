@@ -1,0 +1,50 @@
+<header class="topbar-container">
+  <div class="topbar-left">
+    <!-- Mobile toggle button (hidden on desktop) -->
+    <button class="btn btn-ghost d-lg-none me-2">
+      <i class="bi bi-list fs-4"></i>
+    </button>
+    <div class="search-bar d-none d-md-flex align-items-center">
+      <i class="bi bi-search text-muted"></i>
+      <input type="text" class="form-control border-0 shadow-none bg-transparent" [placeholder]="'COMMON.SEARCH' | translate">
+    </div>
+  </div>
+
+  <div class="topbar-right d-flex align-items-center gap-3">
+    <!-- Language Switcher -->
+    <div class="d-flex align-items-center me-1">
+      <i class="bi bi-globe2 text-muted me-2"></i>
+      <select class="form-select form-select-sm border-0 bg-transparent text-uppercase fw-bold shadow-none cursor-pointer" 
+              style="width: auto; padding-right: 24px;"
+              [value]="currentLang" 
+              (change)="setLanguage($any($event.target).value)">
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+        <option value="hi">HI</option>
+        <option value="kn">KN</option>
+      </select>
+    </div>
+
+    <button class="btn btn-icon theme-toggle" (click)="toggleTheme()">
+      <i class="bi" [ngClass]="isDarkMode ? 'bi-sun-fill text-warning' : 'bi-moon-fill'"></i>
+    </button>
+    
+    <button class="btn btn-icon position-relative">
+      <i class="bi bi-bell"></i>
+      <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+        <span class="visually-hidden">{{ 'COMMON.NEW_ALERTS' | translate }}</span>
+      </span>
+    </button>
+
+    <div class="user-profile d-flex align-items-center gap-2 cursor-pointer ms-2">
+      <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold">
+        {{ currentUser?.name?.charAt(0) || 'U' }}
+      </div>
+      <div class="user-info d-none d-md-block">
+        <div class="user-name fw-medium">{{ currentUser?.name || ('COMMON.USER' | translate) }}</div>
+        <div class="user-role text-muted small">{{ 'COMMON.PRO_MEMBER' | translate }}</div>
+      </div>
+      <i class="bi bi-chevron-down ms-1 text-muted small d-none d-md-block"></i>
+    </div>
+  </div>
+</header>

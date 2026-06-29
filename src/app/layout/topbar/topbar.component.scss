@@ -1,0 +1,75 @@
+@import '../../../styles/variables';
+
+.topbar-container {
+  height: 70px;
+  background-color: $surface-light;
+  border-bottom: 1px solid $border-light;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  
+  .search-bar {
+    background-color: rgba(0,0,0,0.03);
+    border-radius: $border-radius-lg;
+    padding: 0.25rem 1rem;
+    width: 300px;
+    transition: all 0.3s;
+    
+    &:focus-within {
+      background-color: rgba(0,0,0,0.05);
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+    }
+    
+    input {
+      font-size: 0.9rem;
+      &:focus { box-shadow: none; }
+    }
+  }
+
+  .btn-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: $text-muted-light;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: rgba(0,0,0,0.05);
+      color: $primary-color;
+    }
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+:host-context(.dark-mode) .topbar-container {
+  background-color: $surface-dark;
+  border-bottom-color: $border-dark;
+  
+  .search-bar {
+    background-color: rgba(255,255,255,0.05);
+    input { color: $text-dark; }
+    input::placeholder { color: $text-muted-dark; }
+    
+    &:focus-within {
+      background-color: rgba(255,255,255,0.08);
+    }
+  }
+
+  .btn-icon {
+    color: $text-muted-dark;
+    &:hover { background-color: rgba(255,255,255,0.1); color: white; }
+  }
+}

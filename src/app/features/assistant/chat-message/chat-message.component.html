@@ -1,0 +1,19 @@
+<div class="message-wrapper" [ngClass]="message.role">
+  <div class="avatar" *ngIf="message.role === 'assistant'">
+    <i class="bi bi-robot"></i>
+  </div>
+  
+  <div class="message-content-container">
+    <div class="message-bubble">
+      <!-- User message (Plain Text) -->
+      <span *ngIf="message.role === 'user'">{{ message.content }}</span>
+      
+      <!-- Assistant message (Markdown) -->
+      <div *ngIf="message.role === 'assistant'" class="markdown-content" [innerHTML]="parsedContent"></div>
+      
+      <!-- Blinking cursor for streaming -->
+      <span *ngIf="message.isStreaming" class="typing-cursor"></span>
+    </div>
+    <div class="message-time">{{ message.timestamp | date:'shortTime' }}</div>
+  </div>
+</div>

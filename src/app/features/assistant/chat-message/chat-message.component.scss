@@ -1,0 +1,113 @@
+@import '../../../../styles/variables';
+
+.message-wrapper {
+  display: flex;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+
+  &.user {
+    flex-direction: row-reverse;
+    
+    .message-content-container {
+      align-items: flex-end;
+    }
+
+    .message-bubble {
+      background: linear-gradient(135deg, $primary-color, darken($primary-color, 10%));
+      color: white;
+      border-radius: 18px 18px 4px 18px;
+    }
+  }
+
+  &.assistant {
+    .message-content-container {
+      align-items: flex-start;
+    }
+
+    .message-bubble {
+      background-color: $surface-light;
+      border: 1px solid $border-light;
+      color: $text-light;
+      border-radius: 18px 18px 18px 4px;
+      box-shadow: $shadow-sm;
+    }
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6610f2, #d63384);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .message-content-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+  }
+
+  .message-bubble {
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    position: relative;
+  }
+
+  .message-time {
+    font-size: 0.75rem;
+    color: $text-muted-light;
+    margin-top: 0.25rem;
+    padding: 0 0.25rem;
+  }
+
+  .typing-cursor {
+    display: inline-block;
+    width: 6px;
+    height: 16px;
+    background-color: currentColor;
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+    margin-left: 2px;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  // Markdown Styles
+  ::ng-deep .markdown-content {
+    p:last-child { margin-bottom: 0; }
+    pre {
+      background-color: rgba(0,0,0,0.05);
+      padding: 1rem;
+      border-radius: $border-radius-md;
+      overflow-x: auto;
+    }
+    code {
+      font-family: monospace;
+      background-color: rgba(0,0,0,0.05);
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+    }
+  }
+}
+
+:host-context(.dark-mode) .message-wrapper {
+  &.assistant .message-bubble {
+    background-color: $surface-dark;
+    border-color: $border-dark;
+    color: $text-dark;
+  }
+  
+  ::ng-deep .markdown-content {
+    pre, code {
+      background-color: rgba(255,255,255,0.05);
+    }
+  }
+}

@@ -1,0 +1,47 @@
+<div class="chat-container">
+  <div class="chat-header d-flex justify-content-between align-items-center p-3 border-bottom">
+    <div class="d-flex align-items-center gap-2">
+      <i class="bi bi-robot fs-4 text-primary"></i>
+      <h5 class="mb-0 fw-bold">{{ 'ASSISTANT.CHAT_HEADER' | translate }}</h5>
+    </div>
+    <div>
+      <select class="form-select form-select-sm shadow-none" [value]="currentProvider" (change)="setProvider($event)">
+        <option value="groq">{{ 'SETTINGS.PROVIDERS.GROQ' | translate }} (Llama 3)</option>
+        <option value="github">{{ 'SETTINGS.PROVIDERS.GITHUB' | translate }} (GPT-4o)</option>
+        <option value="google">{{ 'SETTINGS.PROVIDERS.GEMINI' | translate }}</option>
+        <option value="cohere">{{ 'SETTINGS.PROVIDERS.COHERE' | translate }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="chat-messages" #scrollMe>
+    <app-chat-message *ngFor="let msg of messages" [message]="msg"></app-chat-message>
+    
+    <div *ngIf="isTyping" class="message-wrapper assistant">
+      <div class="avatar"><i class="bi bi-robot"></i></div>
+      <div class="message-content-container">
+        <div class="message-bubble typing-indicator">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input-area">
+    <div class="input-group">
+      <textarea 
+        class="form-control custom-textarea" 
+        [placeholder]="'ASSISTANT.CHAT_PLACEHOLDER' | translate"
+        [(ngModel)]="inputText"
+        (keydown)="handleKeyDown($event)"
+        rows="1"
+      ></textarea>
+      <button class="btn btn-primary send-btn" [disabled]="!inputText.trim()" (click)="sendMessage()">
+        <i class="bi bi-send-fill"></i>
+      </button>
+    </div>
+    <div class="text-center mt-2">
+      <small class="text-muted">{{ 'ASSISTANT.CHAT_WARNING' | translate }}</small>
+    </div>
+  </div>
+</div>

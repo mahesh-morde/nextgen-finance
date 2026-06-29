@@ -1,0 +1,26 @@
+<aside class="sidebar-container" [class.collapsed]="isCollapsed">
+  <div class="sidebar-header">
+    <div class="brand-logo">
+      <i class="bi bi-hexagon-fill text-primary me-2"></i>
+      <span class="brand-text fw-bold">{{ 'COMMON.APP_NAME' | translate }}</span>
+    </div>
+  </div>
+
+  <div class="sidebar-menu">
+    <a *ngFor="let item of navItems" 
+       [routerLink]="item.route" 
+       routerLinkActive="active"
+       class="menu-item"
+       [title]="isCollapsed ? (item.label | translate) : ''">
+      <i class="bi {{ item.icon }} menu-icon"></i>
+      <span class="menu-label">{{ item.label | translate }}</span>
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    <a href="javascript:void(0)" class="menu-item text-danger" (click)="logout()" [title]="isCollapsed ? ('SIDEBAR.LOGOUT' | translate) : ''">
+      <i class="bi bi-box-arrow-left menu-icon"></i>
+      <span class="menu-label">{{ 'SIDEBAR.LOGOUT' | translate }}</span>
+    </a>
+  </div>
+</aside>
