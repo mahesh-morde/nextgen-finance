@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusAI Finance - Intelligent Co-Pilot</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --font-main: 'Inter', -apple-system, sans-serif;
+            --font-display: 'Outfit', -apple-system, sans-serif;
+        }
+
+        /* Light Theme (Default) */
+        :root[data-bs-theme="light"] {
+            --bg-main: #ffffff;
+            --bg-secondary: #f8f9fc;
+            --text-main: #1d1d1f;
+            --text-muted: #6e6e73;
+            --text-inverse: #ffffff;
+            --accent: #0066cc;
+            --accent-glow: rgba(0, 102, 204, 0.15);
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --card-mockup-bg: rgba(245, 245, 247, 0.8);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --title-gradient: linear-gradient(135deg, #1d1d1f 0%, #6e6e73 100%);
+            --hero-glow: radial-gradient(circle, rgba(0, 102, 204, 0.15) 0%, transparent 60%);
+            --glass-border: rgba(0,0,0,0.05);
+            --glass-hover-border: rgba(0, 102, 204, 0.3);
+            --glass-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --nav-text: #1d1d1f;
+            --nav-border: rgba(0, 0, 0, 0.05);
+            --footer-bg: linear-gradient(to bottom, transparent, rgba(0, 102, 204, 0.05));
+            --icon-bg: rgba(0,0,0,0.03);
+            --chart-bg-1: linear-gradient(to top, rgba(0,102,204,0.6), rgba(0,102,204,0.1));
+            --chart-bg-2: linear-gradient(to top, rgba(255,50,50,0.6), rgba(255,50,50,0.1));
+        }
+
+        /* Dark Theme */
+        :root[data-bs-theme="dark"] {
+            --bg-main: #050505;
+            --bg-secondary: #000000;
+            --text-main: #f5f5f7;
+            --text-muted: #86868b;
+            --text-inverse: #ffffff;
+            --accent: #2997ff;
+            --accent-glow: rgba(41, 151, 255, 0.15);
+            --card-bg: rgba(20, 20, 22, 0.6);
+            --card-mockup-bg: rgba(0, 0, 0, 0.5);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --title-gradient: linear-gradient(135deg, #ffffff 0%, #86868b 100%);
+            --hero-glow: radial-gradient(circle, rgba(41, 151, 255, 0.15) 0%, transparent 60%);
+            --glass-border: rgba(255,255,255,0.08);
+            --glass-hover-border: rgba(255,255,255,0.2);
+            --glass-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            --nav-bg: rgba(5, 5, 5, 0.7);
+            --nav-text: #ffffff;
+            --nav-border: rgba(255, 255, 255, 0.08);
+            --footer-bg: linear-gradient(to bottom, transparent, rgba(41, 151, 255, 0.05));
+            --icon-bg: rgba(255,255,255,0.03);
+            --chart-bg-1: linear-gradient(to top, rgba(41,151,255,0.8), rgba(41,151,255,0.2));
+            --chart-bg-2: linear-gradient(to top, rgba(255,100,100,0.8), rgba(255,100,100,0.2));
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            color: var(--text-main);
+        }
+
+        .text-gradient {
+            background: var(--title-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-accent {
+            color: var(--accent);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--nav-border);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+            color: var(--nav-text) !important;
+        }
+
+        .navbar-brand span {
+            color: var(--accent);
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted) !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--nav-text) !important;
+        }
+
+        #themeToggle {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+
+        #themeToggle:hover {
+            color: var(--accent);
+        }
+
+        /* Layout & Sections */
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .bg-secondary-section {
+            background-color: var(--bg-secondary);
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--glass-hover-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+
+        .icon-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: var(--icon-bg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vw;
+            max-width: 1000px;
+            max-height: 1000px;
+            background: var(--hero-glow);
+            z-index: -1;
+            animation: pulse 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-bottom: 3rem;
+            letter-spacing: -0.5px;
+        }
+
+        /* Flow Diagrams */
+        .flow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .flow-node {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            padding: 1rem 2rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            color: var(--text-main);
+        }
+
+        .flow-arrow {
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flow-vertical {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .flow-vertical .flow-arrow {
+            transform: rotate(90deg);
+        }
+
+        /* Tech Badges */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .tech-badge {
+            background: var(--icon-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            background: var(--accent-glow);
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Feature List */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-muted);
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list i {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        .footer-section {
+            padding: 150px 0 60px;
+            text-align: center;
+            background: var(--footer-bg);
+        }
+
+        .closing-statement {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-family: var(--font-display);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            margin-bottom: 3rem;
+        }
+        
+        .closing-brand {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        
+        .maker-credits {
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Utilities */
+        .mockup-container {
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--glass-shadow);
+            position: relative;
+        }
+        
+        .mockup-header {
+            padding: 2rem;
+            background: var(--card-mockup-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .mockup-chat-bubble {
+            padding: 1rem;
+            border-radius: 12px 12px 12px 2px;
+            background: var(--icon-bg);
+            border: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+        
+        .mockup-chat-reply {
+            padding: 1rem;
+            border-radius: 12px 12px 2px 12px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(41,151,255,0.2);
+            margin-left: auto;
+            text-align: right;
+            max-width: 80%;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbar" tabindex="0">
+
+    <!-- Sticky Navigation -->
+    <nav id="navbar" class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">NexusAI<span>.</span></a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i data-lucide="menu" style="color: var(--nav-text);"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav gap-2 align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#problem">Problem</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#solution">Solution</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Modules</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#journey">Journey</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#architecture">Tech</a></li>
+                    <li class="nav-item border-start ms-2 ps-2 border-secondary">
+                        <button id="themeToggle" aria-label="Toggle theme">
+                            <i data-lucide="moon" id="themeIcon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. Hero -->
+    <section class="hero-section text-center" id="home">
+        <div class="hero-bg"></div>
+        <div class="container position-relative z-1">
+            <div data-aos="zoom-out" data-aos-duration="1000">
+                <p class="text-accent fw-medium mb-3" style="letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem;">Introducing</p>
+                <h1 class="hero-title text-gradient">NexusAI Finance</h1>
+                <p class="hero-subtitle">Your Intelligent Financial Co-Pilot</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. The Problem -->
+    <section id="problem">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8" data-aos="fade-up">
+                    <h2 class="section-title text-gradient">The Divide.</h2>
+                    <p class="section-subtitle">Retail investing in India has grown exponentially. Financial understanding has not kept pace.</p>
+                </div>
+            </div>
+            
+            <div class="row mt-5" data-aos="fade-up" data-aos-delay="200">
+                <div class="col-12">
+                    <div class="flow-container flow-vertical d-md-flex flex-md-row">
+                        <div class="flow-node">
+                            <i data-lucide="users" class="text-accent"></i> Investors
+                        </div>
+                        <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
+                        <div class="flow-node">
+                            <i data-lucide="help-circle" class="text-warning"></i> Confusion
+                        </div>
+                        <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
+                        <div class="flow-node">
+                            <i data-lucide="x-circle" class="text-danger"></i> Wrong Decisions
+                        </div>
+                        <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
+                        <div class="flow-node" style="background: rgba(255,50,50,0.05); border-color: rgba(255,50,50,0.3);">
+                            <i data-lucide="trending-down" class="text-danger"></i> Losses
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Current Challenges -->
+    <section class="bg-secondary-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-12 text-center" data-aos="fade-up">
+                    <h2 class="section-title text-gradient">Current Challenges</h2>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card">
+                        <div class="icon-box"><i data-lucide="file-text"></i></div>
+                        <h4 class="mb-3">Complex Products</h4>
+                        <p class="text-muted mb-0">Financial jargon makes product analysis intimidating for retail investors.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card">
+                        <div class="icon-box"><i data-lucide="alert-triangle"></i></div>
+                        <h4 class="mb-3">Misunderstood Risk</h4>
+                        <p class="text-muted mb-0">Hidden vulnerabilities and sector over-exposure are often realized too late.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="glass-card">
+                        <div class="icon-box"><i data-lucide="bar-chart-2"></i></div>
+                        <h4 class="mb-3">Difficult Summaries</h4>
+                        <p class="text-muted mb-0">Consolidating insights across diverse portfolios remains a manual, tedious task.</p>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="glass-card">
+                        <div class="icon-box"><i data-lucide="shield-alert"></i></div>
+                        <h4 class="mb-3">Reactive Fraud Detection</h4>
+                        <p class="text-muted mb-0">Systems respond to suspicious activities after the damage is done, rather than preventing it.</p>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="glass-card">
+                        <div class="icon-box"><i data-lucide="bot"></i></div>
+                        <h4 class="mb-3">Generic AI</h4>
+                        <p class="text-muted mb-0">Standard chatbots lack financial context, regulatory awareness, and deep integration with user portfolios.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Introducing NexusAI Finance -->
+    <section id="solution">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                    <h2 class="section-title text-gradient">The Solution.</h2>
+                    <h3 class="fw-light mb-4">Bridging the gap with intelligence.</h3>
+                    <p class="text-muted fs-5 mb-4">NexusAI Finance exists to democratize financial expertise. We transform raw market data and complex portfolio structures into conversational, actionable intelligence.</p>
+                    
+                    <div class="mt-5">
+                        <div class="d-flex align-items-start mb-4">
+                            <i data-lucide="target" class="text-accent me-3 mt-1"></i>
+                            <div>
+                                <h5>Mission</h5>
+                                <p class="text-muted">To provide explainable financial guidance and personalized education to every retail investor.</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <i data-lucide="eye" class="text-accent me-3 mt-1"></i>
+                            <div>
+                                <h5>Vision</h5>
+                                <p class="text-muted">A future where intelligent risk analysis and portfolio insights are accessible instantly, empowering confident decisions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="glass-card p-0 mockup-container">
+                        <div class="mockup-header">
+                            <div class="d-flex align-items-center gap-2 mb-4">
+                                <div style="width:12px; height:12px; border-radius:50%; background:#ff5f56;"></div>
+                                <div style="width:12px; height:12px; border-radius:50%; background:#ffbd2e;"></div>
+                                <div style="width:12px; height:12px; border-radius:50%; background:#27c93f;"></div>
+                            </div>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="icon-box mb-0" style="width: 40px; height: 40px;"><i data-lucide="bot"></i></div>
+                                <div>
+                                    <h6 class="mb-0">Nexus Co-Pilot</h6>
+                                    <small class="text-accent">Analyzing Portfolio...</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding: 2rem;">
+                            <div class="mockup-chat-bubble">
+                                <p class="mb-0 text-muted fs-6">I noticed your exposure to the IT sector has reached 45%. Given the recent volatility in tech indices, would you like to run a risk simulation?</p>
+                            </div>
+                            <div class="mockup-chat-reply">
+                                <p class="mb-0 fs-6 fw-medium">Yes, show me the impact of a 10% market correction.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Product Modules -->
+    <section id="features" class="bg-secondary-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 text-center" data-aos="fade-up">
+                    <h2 class="section-title text-gradient">Product Architecture</h2>
+                    <p class="section-subtitle mx-auto">A comprehensive suite of modules designed for enterprise-grade performance.</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="glass-card text-center p-4">
+                        <i data-lucide="layout-dashboard" class="text-accent mb-3" width="32" height="32"></i>
+                        <h5>Dashboard</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="glass-card text-center p-4">
+                        <i data-lucide="pie-chart" class="text-accent mb-3" width="32" height="32"></i>
+                        <h5>Portfolio</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="glass-card text-center p-4">
+                        <i data-lucide="activity" class="text-accent mb-3" width="32" height="32"></i>
+                        <h5>Risk Analysis</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="glass-card text-center p-4" style="border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow);">
+                        <i data-lucide="cpu" class="text-accent mb-3" width="32" height="32"></i>
+                        <h5>AI Assistant</h5>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="glass-card text-center p-4">
+                        <i data-lucide="file-spreadsheet" class="text-muted mb-3" width="32" height="32"></i>
+                        <h5>Reports</h5>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="glass-card text-center p-4">
+                        <i data-lucide="settings" class="text-muted mb-3" width="32" height="32"></i>
+                        <h5>Settings</h5>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="700">
+                    <div class="glass-card text-center p-4">
+                        <i data-lucide="shield" class="text-muted mb-3" width="32" height="32"></i>
+                        <h5>Authentication</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. AI Co-Pilot -->
+    <section>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 order-lg-2 mb-5 mb-lg-0" data-aos="fade-left">
+                    <h2 class="section-title text-gradient">AI Co-Pilot.</h2>
+                    <p class="section-subtitle mb-4">Powered by advanced RAG architectures and deep financial knowledge graphs.</p>
+                    
+                    <ul class="feature-list">
+                        <li><i data-lucide="check-circle-2"></i> Explains complex financial products</li>
+                        <li><i data-lucide="check-circle-2"></i> Real-time portfolio insights</li>
+                        <li><i data-lucide="check-circle-2"></i> Advanced risk simulation</li>
+                        <li><i data-lucide="check-circle-2"></i> Suspicious pattern detection</li>
+                        <li><i data-lucide="check-circle-2"></i> Natural language investment summaries</li>
+                        <li><i data-lucide="check-circle-2"></i> Fully explainable AI (XAI)</li>
+                        <li><i data-lucide="check-circle-2"></i> Retrieval-Augmented Generation (RAG)</li>
+                        <li><i data-lucide="check-circle-2"></i> Regulatory aware responses</li>
+                    </ul>
+                </div>
+                <div class="col-lg-7 order-lg-1" data-aos="fade-right">
+                    <div class="glass-card" style="min-height: 400px; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <h5 class="mb-4">Risk Simulation Engine</h5>
+                            <!-- CSS Mock Chart -->
+                            <div style="display: flex; align-items: flex-end; gap: 10px; height: 150px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                                <div style="flex:1; background: var(--chart-bg-1); height: 40%; border-radius: 4px 4px 0 0;"></div>
+                                <div style="flex:1; background: var(--chart-bg-1); height: 60%; border-radius: 4px 4px 0 0;"></div>
+                                <div style="flex:1; background: var(--chart-bg-2); height: 30%; border-radius: 4px 4px 0 0;"></div>
+                                <div style="flex:1; background: var(--chart-bg-1); height: 80%; border-radius: 4px 4px 0 0;"></div>
+                                <div style="flex:1; background: var(--chart-bg-1); height: 100%; border-radius: 4px 4px 0 0;"></div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2 text-muted" style="font-size: 0.8rem;">
+                                <span>Baseline</span>
+                                <span>Volatility Shock</span>
+                                <span>Recovery</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4" style="border-top: 1px solid var(--border-color);">
+                            <div class="d-flex align-items-center gap-3">
+                                <i data-lucide="info" class="text-accent"></i>
+                                <p class="mb-0 text-muted fs-6">Simulation indicates a 12% portfolio drawdown under severe market stress scenarios, primarily driven by Mid-Cap exposure.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Live User Journey -->
+    <section id="journey" class="bg-secondary-section">
+        <div class="container text-center">
+            <h2 class="section-title text-gradient mb-5" data-aos="fade-up">The User Journey</h2>
+            
+            <div class="flow-container justify-content-center mt-5" data-aos="fade-up" data-aos-delay="200">
+                <div class="flow-node"><i data-lucide="log-in" class="text-muted"></i> Sign In</div>
+                <div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+                <div class="flow-node"><i data-lucide="layout-dashboard" class="text-muted"></i> Dashboard</div>
+                <div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+                <div class="flow-node"><i data-lucide="pie-chart" class="text-muted"></i> Portfolio</div>
+                <div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+                <div class="flow-node" style="border-color: var(--accent);"><i data-lucide="bot" class="text-accent"></i> AI Analysis</div>
+                <div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+                <div class="flow-node"><i data-lucide="activity" class="text-muted"></i> Risk Sim</div>
+                <div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+                <div class="flow-node"><i data-lucide="lightbulb" class="text-muted"></i> Recommend</div>
+                <div class="flow-arrow"><i data-lucide="chevron-right"></i></div>
+                <div class="flow-node"><i data-lucide="file-text" class="text-muted"></i> Summary</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Architecture & 9. Technology Stack -->
+    <section id="architecture">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5" data-aos="fade-right">
+                    <h2 class="section-title text-gradient">System Architecture</h2>
+                    <p class="section-subtitle">Engineered for real-time reactivity and AI integration.</p>
+                    
+                    <div class="glass-card p-4">
+                        <div class="flow-container flow-vertical align-items-start text-start w-100">
+                            <div class="flow-node w-100 justify-content-center" style="background: rgba(221, 0, 49, 0.05); border-color: rgba(221, 0, 49, 0.3);">Angular (UI)</div>
+                            <div class="flow-arrow align-self-center"><i data-lucide="arrow-down"></i></div>
+                            <div class="flow-node w-100 justify-content-center">NgRx Signals (State)</div>
+                            <div class="flow-arrow align-self-center"><i data-lucide="arrow-down"></i></div>
+                            <div class="flow-node w-100 justify-content-center" style="background: var(--accent-glow); border-color: var(--accent);">AI Layer</div>
+                            <div class="flow-arrow align-self-center"><i data-lucide="arrow-down"></i></div>
+                            <div class="d-flex w-100 gap-2">
+                                <div class="flow-node flex-grow-1 justify-content-center" style="font-size: 0.8rem;">RAG</div>
+                                <div class="flow-node flex-grow-1 justify-content-center" style="font-size: 0.8rem;">Fin-Knowledge</div>
+                                <div class="flow-node flex-grow-1 justify-content-center" style="font-size: 0.8rem;">Market Data</div>
+                            </div>
+                            <div class="flow-arrow align-self-center"><i data-lucide="arrow-down"></i></div>
+                            <div class="flow-node w-100 justify-content-center" style="border-color: var(--accent);">Interactive Dashboard</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 offset-lg-1 mt-5 mt-lg-0" data-aos="fade-left">
+                    <h2 class="section-title text-gradient">Technology Stack</h2>
+                    <p class="section-subtitle">Modern. Scalable. Enterprise-ready.</p>
+                    
+                    <div class="tech-grid">
+                        <div class="tech-badge">Angular 18</div>
+                        <div class="tech-badge">Standalone Components</div>
+                        <div class="tech-badge">NgRx Signals</div>
+                        <div class="tech-badge">Bootstrap 5</div>
+                        <div class="tech-badge">Angular Material</div>
+                        <div class="tech-badge">ApexCharts</div>
+                        <div class="tech-badge">Docker</div>
+                        <div class="tech-badge">Nginx</div>
+                        <div class="tech-badge">FastAPI</div>
+                        <div class="tech-badge">Python</div>
+                        <div class="tech-badge">OpenAI</div>
+                        <div class="tech-badge">RAG</div>
+                        <div class="tech-badge">PWA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Business Impact -->
+    <section class="bg-secondary-section">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12" data-aos="fade-up">
+                    <h2 class="section-title text-gradient">Business Impact</h2>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card" style="border-top: 4px solid #27c93f;">
+                        <div class="d-flex align-items-center mb-4">
+                            <i data-lucide="trending-up" class="text-success me-3" width="32" height="32"></i>
+                            <h4 class="mb-0">Increase</h4>
+                        </div>
+                        <ul class="feature-list">
+                            <li><i data-lucide="check" class="text-success"></i> Financial Literacy</li>
+                            <li><i data-lucide="check" class="text-success"></i> Investment Confidence</li>
+                            <li><i data-lucide="check" class="text-success"></i> Portfolio Awareness</li>
+                            <li><i data-lucide="check" class="text-success"></i> Customer Trust</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card" style="border-top: 4px solid #ff5f56;">
+                        <div class="d-flex align-items-center mb-4">
+                            <i data-lucide="trending-down" class="text-danger me-3" width="32" height="32"></i>
+                            <h4 class="mb-0">Reduce</h4>
+                        </div>
+                        <ul class="feature-list">
+                            <li><i data-lucide="arrow-down" class="text-danger"></i> Investment Errors</li>
+                            <li><i data-lucide="arrow-down" class="text-danger"></i> Support Cost</li>
+                            <li><i data-lucide="arrow-down" class="text-danger"></i> Investor Confusion</li>
+                            <li><i data-lucide="arrow-down" class="text-danger"></i> Fraud Incidence</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. Roadmap -->
+    <section>
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 text-center" data-aos="fade-up">
+                    <h2 class="section-title text-gradient">Product Roadmap</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flow-container justify-content-center position-relative">
+                        <!-- Horizontal Line -->
+                        <div style="position:absolute; top:50%; left:10%; right:10%; height:2px; background:var(--border-color); z-index:0;"></div>
+                        
+                        <div class="flow-node position-relative z-1" style="border-color: var(--accent); color: var(--accent);">
+                            Prototype
+                        </div>
+                        <div class="flow-node position-relative z-1">
+                            Beta
+                        </div>
+                        <div class="flow-node position-relative z-1">
+                            Live APIs
+                        </div>
+                        <div class="flow-node position-relative z-1">
+                            Production
+                        </div>
+                        <div class="flow-node position-relative z-1" style="background: var(--icon-bg);">
+                            Enterprise
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. Hackathon Submission Summary -->
+    <section class="bg-secondary-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10" data-aos="fade-up">
+                    <div class="glass-card text-center">
+                        <h3 class="mb-5">NextGen Nexus Hackathon Submission</h3>
+                        <div class="row g-4 text-start">
+                            <div class="col-md-4">
+                                <h6 class="text-muted text-uppercase mb-2" style="font-size:0.75rem; letter-spacing:1px;">Theme</h6>
+                                <p class="fw-medium">Finance</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="text-muted text-uppercase mb-2" style="font-size:0.75rem; letter-spacing:1px;">Project</h6>
+                                <p class="fw-medium">NexusAI Finance</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="text-muted text-uppercase mb-2" style="font-size:0.75rem; letter-spacing:1px;">Technology</h6>
+                                <p class="fw-medium">Angular 18 + AI (RAG)</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="text-muted text-uppercase mb-2" style="font-size:0.75rem; letter-spacing:1px;">Architecture</h6>
+                                <p class="fw-medium">Signal-driven PWA</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="text-muted text-uppercase mb-2" style="font-size:0.75rem; letter-spacing:1px;">Business Value</h6>
+                                <p class="fw-medium">Democratizing Fin-Intel</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="text-muted text-uppercase mb-2" style="font-size:0.75rem; letter-spacing:1px;">Future Scope</h6>
+                                <p class="fw-medium">Enterprise White-labeling</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. Closing & Credits -->
+    <section class="footer-section">
+        <div class="container" data-aos="zoom-in" data-aos-duration="1200">
+            <h1 class="closing-statement">
+                <span class="text-muted">The Future of Investing isn't just Digital.</span><br>
+                It's Intelligent.
+            </h1>
+            <div class="mt-5">
+                <div class="closing-brand mb-2">NexusAI Finance</div>
+                <p class="text-muted">Your Intelligent Financial Co-Pilot.</p>
+            </div>
+            
+            <div class="maker-credits text-center">
+                <p class="mb-2 fw-medium">Made with ❤️ by Mahesh Morde</p>
+                <p class="text-muted d-flex align-items-center justify-content-center gap-2">
+                    <i data-lucide="phone" style="width: 16px; height: 16px;"></i> +91 9766228503
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+            easing: 'ease-out-cubic'
+        });
+
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlEl = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlEl.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            htmlEl.setAttribute('data-bs-theme', newTheme);
+            
+            // Update Icon
+            if (newTheme === 'light') {
+                themeIcon.setAttribute('data-lucide', 'moon');
+            } else {
+                themeIcon.setAttribute('data-lucide', 'sun');
+            }
+            lucide.createIcons();
+        });
+
+        // Navbar styling on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                const isLight = htmlEl.getAttribute('data-bs-theme') === 'light';
+                navbar.style.background = isLight ? 'rgba(255, 255, 255, 0.95)' : 'rgba(5, 5, 5, 0.85)';
+                navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.background = 'var(--nav-bg)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

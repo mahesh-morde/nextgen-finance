@@ -52,7 +52,7 @@ export class ChatService {
     this.currentProvider.set(provider);
   }
 
-  sendMessage(content: string) {
+  sendMessage(content: string, showcaseIntentId?: string) {
     const userMsg: ChatMessage = {
       id: Date.now().toString(),
       role: 'user',
@@ -64,9 +64,9 @@ export class ChatService {
     this.isTyping.set(true);
     
     // Check if it's one of the predefined Advanced Showcase prompts
-    const showcaseResponseKey = this.checkShowcaseIntents(content);
-    if (showcaseResponseKey) {
-      const translatedResponse = this.ts.translate(showcaseResponseKey);
+    const responseKey = showcaseIntentId ? `CHAT_INTENTS.${showcaseIntentId}` : this.checkShowcaseIntents(content);
+    if (responseKey) {
+      const translatedResponse = this.ts.translate(responseKey);
       setTimeout(() => this.simulateStreamingResponse(translatedResponse), 500);
       return;
     }
