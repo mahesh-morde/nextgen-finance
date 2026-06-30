@@ -24,6 +24,17 @@
 
 ---
 
+## 🔗 Important Links
+
+| Resource | Link |
+| :--- | :--- |
+| 🌐 **Interactive Prototype (Live)** | [https://nextgen-finance-bnw5.onrender.com/assistant](https://nextgen-finance-bnw5.onrender.com/assistant) |
+| 📊 **Presentation (Slides)** | [https://mahesh-morde.github.io/nextgen-finance/](https://mahesh-morde.github.io/nextgen-finance/) |
+| 🎬 **Demo Video (Screen Recording)** | [Watch on YouTube - https://youtu.be/3eZBOukeJAs](https://youtu.be/3eZBOukeJAs) |
+| 💻 **Source Code** | [https://github.com/mahesh-morde/nextgen-finance](https://github.com/mahesh-morde/nextgen-finance) |
+
+---
+
 ## 📖 Overview
 
 **NexusAI Finance** bridges the gap between financial access and financial understanding. With the rapid growth of retail investing, many investors have access to markets but lack the deep financial knowledge required to navigate them safely.
